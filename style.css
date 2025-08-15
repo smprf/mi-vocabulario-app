@@ -1,0 +1,447 @@
+/* =======================
+   ІМПОРТ ШРИФТУ ТА ГЛОБАЛЬНІ СТИЛІ
+   Ми імпортуємо приємний шрифт з Google Fonts і задаємо базові налаштування
+======================== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #2980b9; /* Синій для кнопок та акцентів */
+    --secondary-color: #3498db; /* Світліший синій для ховерів */
+    --background-color: #f4f7f9; /* Дуже світлий сіро-синій фон */
+    --text-color: #333; /* Темно-сірий для основного тексту */
+    --white-color: #ffffff; /* Білий для карток та контейнерів */
+    --border-radius: 8px; /* Скруглення кутів */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* =======================
+   ОСНОВНА РОЗМІТКА (HEADER, MAIN)
+======================== */
+header {
+    background-color: var(--white-color);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+header nav a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: var(--secondary-color);
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto; /* Центрування основного контенту */
+    padding: 0 1rem;
+}
+
+section {
+    background-color: var(--white-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* =======================
+   СТИЛІ ДЛЯ УНІВЕРСАЛЬНИХ ЕЛЕМЕНТІВ (КНОПКИ, ПОЛЯ ВВОДУ)
+======================== */
+button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px); /* Легкий ефект підняття */
+}
+
+input[type="text"],
+input[type="search"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    box-sizing: border-box; /* Важливо для правильного розрахунку ширини */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* =======================
+   СТИЛІ ДЛЯ КОНКРЕТНИХ СЕКЦІЙ
+======================== */
+
+/* Екран 1: Головна панель */
+.topic-generator {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.topic-generator p {
+    margin-bottom: 1rem;
+}
+
+#generate-topic-btn {
+    margin-top: 1rem;
+    width: 50%;
+}
+
+/* Екран 2: Вивчення слів (картки) */
+#learning-screen {
+    text-align: center;
+}
+
+.flashcard {
+    background-color: var(--white-color);
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 3rem 2rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.flashcard .word {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.flashcard .translation {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.flashcard .examples li {
+    background-color: transparent;
+    font-style: italic;
+    color: #555;
+    padding: 0.2rem;
+    justify-content: center;
+}
+
+/* Екран 3: Тест */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.options button {
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    width: 100%;
+}
+
+.options button:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+/* Додайте це в кінець style.css */
+#loading-indicator {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+/* Додайте це в кінець style.css */
+
+/* Стилі для підсумкової таблиці */
+#summary-table {
+    width: 100%;
+    border-collapse: collapse; /* Прибирає подвійні рамки між клітинками */
+    margin: 2rem 0;
+}
+
+#summary-table th, 
+#summary-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#summary-table th {
+    background-color: var(--background-color);
+    font-weight: 700;
+}
+
+#summary-table td .example-spa {
+    font-style: italic;
+    color: #555;
+}
+
+#summary-table td .example-ukr {
+    font-size: 0.9em;
+    color: #777;
+}
+
+#start-test-btn {
+    display: block;
+    margin: 0 auto; /* Центрування кнопки */
+    width: 50%;
+}
+/* Додайте це в кінець style.css */
+
+/* Стилі для динамічного словника */
+#dictionary-content {
+    margin-top: 2rem;
+}
+
+.dictionary-theme-section {
+    margin-bottom: 2rem;
+}
+
+.dictionary-theme-section h3 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--background-color);
+    padding-bottom: 0.5rem;
+}
+
+#dictionary-content ul {
+    columns: 2; /* Розбиваємо список на дві колонки для компактності */
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    list-style-position: inside;
+}
+
+#dictionary-content li {
+    background-color: transparent;
+    padding: 0.5rem;
+    border: none;
+    box-shadow: none;
+}
+/* Додайте це в кінець style.css */
+
+/* ЗАМІНІТЬ СТАРИЙ БЛОК НА ЦЕЙ */
+
+/* Стилі для читабельних прикладів у картках та таблиці */
+.flashcard .examples li p,
+#summary-table td p {
+    margin: 0; /* Скидаємо стандартні відступи параграфів */
+    padding: 0;
+}
+
+p.example-spa {
+    font-style: italic;
+    color: #555;
+}
+
+p.example-ukr {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0.3rem; /* Додаємо невеликий відступ зверху до перекладу */
+}
+/* Додайте це в кінець style.css */
+
+/* Стилі для екрану тестування */
+#test-progress {
+    text-align: center;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.test-question-container {
+    text-align: center;
+}
+
+#test-word {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+/* Стилі для кнопок-відповідей */
+.options button.correct {
+    background-color: #2ecc71; /* Зелений */
+    color: var(--white-color);
+    border-color: #2ecc71;
+}
+
+.options button.incorrect {
+    background-color: #e74c3c; /* Червоний */
+    color: var(--white-color);
+    border-color: #e74c3c;
+}
+
+.options button.disabled {
+    pointer-events: none; /* Вимикає кліки */
+    opacity: 0.7;
+}
+
+/* Стилі для екрану результатів */
+#test-results-screen {
+    text-align: center;
+}
+
+#test-score {
+    font-size: 2rem;
+    margin: 2rem 0;
+}
+/* Додайте це в кінець style.css */
+
+/* Стилі для профілю */
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.stat-item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    width: 30%;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.achievements-container {
+    list-style-type: none;
+    padding: 0;
+}
+
+.achievements-container li {
+    background-color: #f0f0f0;
+    color: #aaa;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s;
+}
+
+.achievements-container li.unlocked {
+    background-color: #e8f5e9; /* Світло-зелений */
+    color: #2e7d32; /* Темно-зелений */
+    font-weight: 500;
+}
+/* =======================================
+   АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ
+   Ці стилі активуються на екранах, 
+   ширина яких 600px або менше.
+======================================== */
+@media (max-width: 600px) {
+
+    /* --- Загальні зміни --- */
+    body {
+        font-size: 16px; /* Зробимо базовий шрифт трохи більшим */
+    }
+
+    main {
+        margin: 1rem auto; /* Зменшимо відступи зверху та знизу */
+    }
+
+    section {
+        padding: 1.5rem 1rem; /* Зменшимо внутрішні відступи секцій */
+    }
+
+    /* --- Хедер (шапка сайту) --- */
+    header {
+        flex-direction: column; /* Розташуємо лого та навігацію одне під одним */
+        text-align: center;
+        padding: 1rem;
+    }
+
+    header h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    header nav a {
+        margin: 0 0.5rem; /* Зменшимо відступи між посиланнями */
+    }
+
+    /* --- Екран створення теми --- */
+    #generate-topic-btn {
+        width: 100%; /* Кнопка на всю ширину для зручності натискання */
+    }
+
+    /* --- Картки для вивчення --- */
+    .flashcard .word {
+        font-size: 2rem; /* Трохи зменшимо розмір слова */
+    }
+
+    .flashcard .translation {
+        font-size: 1.3rem;
+    }
+
+    /* --- Словник --- */
+    #dictionary-content ul {
+        columns: 1; /* Найважливіше: робимо словник в одну колонку! */
+        -webkit-columns: 1;
+        -moz-columns: 1;
+    }
+
+    /* --- Профіль --- */
+    .stats-container {
+        flex-direction: column; /* Статистику теж розташовуємо вертикально */
+        gap: 1rem;
+    }
+
+    .stat-item {
+        width: 100%; /* Кожен блок статистики на всю ширину */
+        box-sizing: border-box;
+    }
+    
+    /* --- Підсумкова таблиця --- */
+    #summary-table th, 
+    #summary-table td {
+        padding: 8px; /* Зменшимо відступи в таблиці */
+    }
+}

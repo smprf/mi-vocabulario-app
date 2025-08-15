@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Vocabulario - Вивчення іспанської</title>
+    <!-- Тут ми пізніше підключимо файл зі стилями (CSS) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- =======================
+         ХЕДЕР (НАВІГАЦІЯ)
+         Завжди видимий зверху сторінки
+    ======================== -->
+    <header>
+        <h1>Mi Vocabulario</h1>
+        <nav>
+            <!-- Ці посилання поки нікуди не ведуть, ми їх "оживимо" за допомогою JavaScript -->
+            <a href="#" id="nav-dashboard">Головна</a>
+            <a href="#" id="nav-dictionary">Мій словник</a>
+            <a href="#" id="nav-profile">Профіль</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- =======================
+             ЕКРАН 1: ГОЛОВНА ПАНЕЛЬ (Dashboard)
+             Тут користувач створює та обирає теми.
+             За замовчуванням видимий тільки цей блок.
+        ======================== -->
+        <section id="dashboard-screen">
+            <h2>Ваші теми для вивчення</h2>
+            <div class="topic-generator">
+                <p>Введіть тему, яку хочете вивчити (наприклад, "фрукти" або "частини тіла"):</p>
+                <input type="text" id="topic-input" placeholder="Наприклад, їжа...">
+                <button id="generate-topic-btn">Створити новий урок</button>
+    <p id="loading-indicator" style="display: none;">🤖 Готую для вас новий урок...</p>
+</div>
+            </div>
+           <div class="topic-list">
+    <h3>Ваші уроки:</h3>
+    <ul id="user-topics-list">
+        <!-- Цей список буде заповнюватись автоматично -->
+    </ul>
+</div>
+        </section>
+
+        <!-- =======================
+             ЕКРАН 2: ВИВЧЕННЯ СЛІВ (Flashcards)
+             Цей блок за замовчуванням прихований.
+        ======================== -->
+        <section id="learning-screen" style="display: none;">
+            <h2 id="learning-topic-title">Тема: Подорожі</h2>
+            <div class="flashcard">
+                <div class="card-front">
+                    <p class="word">El billete</p>
+                </div>
+                <div class="card-back" style="display: none;">
+                    <p class="translation">Квиток</p>
+                    <ul class="examples">
+                        <li>Yo necesito un billete para Madrid.</li>
+                        <li>¿Cuánto cuesta el billete?</li>
+                        <li>Tengo el billete en mi bolso.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navigation-buttons">
+                <button id="show-translation-btn">Показати переклад</button>
+                <button id="next-word-btn" style="display: none;">Наступне слово</button>
+            </div>
+        </section>
+<!-- =======================
+     НОВИЙ ЕКРАН 5: ПІДСУМКОВА ТАБЛИЦЯ
+     Цей блок також прихований.
+======================== -->
+<section id="summary-screen" style="display: none;">
+    <h2>Підсумок теми: <span id="summary-topic-title"></span></h2>
+    <p>Перегляньте всі слова ще раз перед початком тесту.</p>
+    
+    <table id="summary-table">
+        <thead>
+            <tr>
+                <th>Іспанською</th>
+                <th>Українською</th>
+                <th>Приклад використання</th>
+            </tr>
+        </thead>
+        <tbody id="summary-table-body">
+            <!-- Сюди JavaScript буде динамічно додавати рядки -->
+        </tbody>
+    </table>
+
+    <button id="start-test-btn">Почати тест</button>
+</section>
+
+       <!-- =======================
+     ОНОВЛЕНИЙ ЕКРАН 3: ТЕСТУВАННЯ
+======================== -->
+<section id="test-screen" style="display: none;">
+    <h2 id="test-topic-title">Тест: Їжа</h2>
+    <div id="test-progress">Запитання 1 / 10</div>
+
+    <div class="test-question-container">
+        <p>Як перекладається слово:</p>
+        <h3 id="test-word">El pan</h3>
+        <div id="test-options" class="options">
+            <!-- Кнопки-варіанти будуть генеруватись тут -->
+        </div>
+    </div>
+</section>
+
+<!-- =======================
+     НОВИЙ ЕКРАН 6: РЕЗУЛЬТАТИ ТЕСТУ
+======================== -->
+<section id="test-results-screen" style="display: none;">
+    <h2>Результати тесту</h2>
+    <p>Тему завершено!</p>
+    <h3 id="test-score">Ваш результат: 8 / 10</h3>
+    <p id="test-feedback"></p>
+    <button id="back-to-dashboard-btn">Повернутися на головну</button>
+</section>
+
+        <!-- =======================
+     ОНОВЛЕНИЙ ЕКРАН 4: ДИНАМІЧНИЙ СЛОВНИК
+======================== -->
+<section id="dictionary-screen" style="display: none;">
+    <h2>Мій словник</h2>
+    <input type="search" id="dictionary-search" placeholder="Пошук слова у словнику...">
+    
+    <div id="dictionary-content">
+        <!-- 
+            Сюди JavaScript буде динамічно додавати секції, наприклад:
+            <div class="dictionary-theme-section">
+                <h3>Їжа</h3>
+                <ul>
+                    <li><strong>El pan</strong> - Хліб</li>
+                    ...
+                </ul>
+            </div>
+        -->
+    </div>
+</section>
+      <!-- =======================
+     ЕКРАН 7: ПРОФІЛЬ КОРИСТУВАЧА
+======================== -->
+<section id="profile-screen" style="display: none;">
+    <h2>Ваш Профіль</h2>
+    
+    <div class="stats-container">
+        <div class="stat-item">
+            <div id="stats-topics-completed" class="stat-number">0</div>
+            <div class="stat-label">Тем пройдено</div>
+        </div>
+        <div class="stat-item">
+            <div id="stats-words-learned" class="stat-number">0</div>
+            <div class="stat-label">Слів вивчено</div>
+        </div>
+        <div class="stat-item">
+            <div id="stats-average-score" class="stat-number">0%</div>
+            <div class="stat-label">Середній бал</div>
+        </div>
+    </div>
+
+    <h2>Досягнення</h2>
+    <ul id="achievements-list" class="achievements-container">
+        <li id="ach-first-step">🏆 Перший крок (Пройдіть перший урок)</li>
+        <li id="ach-word-master">🏆 Словниковий марафон (Вивчіть 50 слів)</li>
+        <li id="ach-explorer">🏆 Дослідник (Пройдіть 3 різні теми)</li>
+        <li id="ach-excellent">🏆 Відмінник (Пройдіть тест на 100%)</li>
+    </ul>
+</section>  
+    </main>
+<script src="script.js"></script>
+</body>
+</html>
