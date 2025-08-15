@@ -6,7 +6,7 @@ function loadProgress() { const savedTopics = localStorage.getItem('userTopics')
 
 // !!! ПОВЕРТАЄМО СПРАВЖНІЙ ЗАПИТ ДО СЕРВЕРА !!!
 function fetchTopicFromServer(topicName) {
-    const serverUrl = 'ТУТ_БУДЕ_АДРЕСА_ВАШОГО_СЕРВЕРА_З_KOYEB/generate-topic';
+    const serverUrl = 'https://mi-vocabulario-server.onrender.com/generate-topic';
     console.log(`Відправляю запит на локальний сервер (${serverUrl}) для теми: "${topicName}"`);
 
     return fetch(serverUrl, {
