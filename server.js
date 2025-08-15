@@ -1,5 +1,5 @@
 // =================================================================
-// РОЗДІЛ 1: ПІДКЛЮЧЕННЯ ІНСТРУМЕНТІВ (ТЕПЕР ДЛЯ GOOGLE)
+// РОЗДІЛ 1: ПІДКЛЮЧЕННЯ ІНСТРУМЕНТІВ
 // =================================================================
 const express = require('express');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -7,19 +7,19 @@ const cors = require('cors');
 require('dotenv').config();
 
 // =================================================================
-// РОЗДІЛ 2: НАЛАШТУВАННЯ (ТЕПЕР ДЛЯ GOOGLE)
+// РОЗДІЛ 2: НАЛАШТУВАННЯ
 // =================================================================
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const app = express();
 
 // =================================================================
-// РОЗДІЛ 3: НАЛАШТУВАННЯ СЕРВЕРА (ОНОВЛЕНО)
+// РОЗДІЛ 3: НАЛАШТУВАННЯ СЕРВЕРА
 // =================================================================
 
 // Створюємо список дозволених "гостей" (адрес)
 const corsOptions = {
-  // ВСТАВТЕ СЮДИ ВАШУ РЕАЛЬНУ АДРЕСУ З NETLIFY
-  origin: 'https://mi-vocabulario.netlify.app/' 
+  // !!! ВАЖЛИВО: Вставте сюди вашу реальну адресу з Netlify !!!
+  origin: 'https://mi-vocabulario.netlify.app' 
 };
 app.use(cors(corsOptions));
 
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // =================================================================
-// РОЗДІЛ 4: ГОЛОВНИЙ "РЕЦЕПТ" (ОНОВЛЕНО ДЛЯ GOOGLE)
+// РОЗДІЛ 4: ГОЛОВНИЙ "РЕЦЕПТ" ДЛЯ ГЕНЕРАЦІЇ ТЕМИ
 // =================================================================
 app.post('/generate-topic', async (req, res) => {
     const { topic } = req.body;
@@ -55,7 +55,7 @@ app.post('/generate-topic', async (req, res) => {
             }
           ]
         }
-        Згенеруй від 20 до 30 слів.
+        Згенеруй від 10 до 15 слів.
         У твоїй відповіді не повинно бути жодного тексту, окрім самого JSON-об'єкта. Починай відповідь з символу { і закінчуй символом }.
     `;
 
@@ -66,25 +66,16 @@ app.post('/generate-topic', async (req, res) => {
         const result = await model.generateContent(prompt);
         const response = await result.response;
         
-        // ***НОВИЙ, НАДІЙНИЙ КОД ДЛЯ ОБРОБКИ ВІДПОВІДІ***
         const responseText = response.text();
-
-        // Шукаємо початок і кінець JSON-об'єкта
         const startIndex = responseText.indexOf('{');
         const endIndex = responseText.lastIndexOf('}');
 
         if (startIndex !== -1 && endIndex !== -1) {
-            // Якщо дужки знайдено, вирізаємо рядок, що містить JSON
             const jsonString = responseText.substring(startIndex, endIndex + 1);
-            
-            // Перетворюємо очищений текст на об'єкт JSON
             const generatedData = JSON.parse(jsonString);
-            
             console.log("Успішно отримано та розпарсено дані від Google Gemini.");
             res.json(generatedData);
-
         } else {
-            // Якщо фігурні дужки не знайдено, ШІ повернув щось зовсім не те
             throw new Error("Не вдалося знайти валідний JSON у відповіді від ШІ.");
         }
 
@@ -95,9 +86,8 @@ app.post('/generate-topic', async (req, res) => {
 });
 
 // =================================================================
-// РОЗДІЛ 5: ЗАПУСК СЕРВЕРА (без змін)
+// РОЗДІЛ 5: ЗАПУСК СЕРВЕРА
 // =================================================================
-// Новий код
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Сервер успішно запущено на порту ${PORT}`);
