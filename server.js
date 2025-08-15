@@ -17,7 +17,11 @@ const app = express();
 // =================================================================
 
 // Створюємо список дозволених "гостей" (адрес)
-app.use(cors());
+const corsOptions = {
+  // ВСТАВТЕ СЮДИ ВАШУ РЕАЛЬНУ АДРЕСУ З NETLIFY
+  origin: 'https://mi-vocabulario.netlify.app/' 
+};
+app.use(cors(corsOptions));
 
 // Дозволяємо серверу читати JSON з тіла запиту
 app.use(express.json());
