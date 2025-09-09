@@ -25,7 +25,56 @@ function fetchTopicFromServer(topicName) {
 
 // Весь інший код залишається таким же, як у попередній робочій версії
 function calculateAndDisplayStats() { const completedTopics = userTopics.filter(t => t.score !== undefined); statsTopicsCompleted.textContent = completedTopics.length; let wordsLearned = 0; for (const topic in personalDictionary) { wordsLearned += personalDictionary[topic].length; } statsWordsLearned.textContent = wordsLearned; if (completedTopics.length > 0) { const totalScore = completedTopics.reduce((sum, t) => sum + t.score, 0); const totalQuestions = completedTopics.reduce((sum, t) => sum + t.totalQuestions, 0); const averagePercentage = totalQuestions > 0 ? Math.round((totalScore / totalQuestions) * 100) : 0; statsAverageScore.textContent = `${averagePercentage}%`; } else { statsAverageScore.textContent = '0%'; } }
-function checkAndDisplayAchievements() { const wordsLearned = parseInt(statsWordsLearned.textContent); const completedTopicsCount = parseInt(statsTopicsCompleted.textContent); if (completedTopicsCount >= 1) document.getElementById('ach-first-step').classList.add('unlocked'); if (wordsLearned >= 50) document.getElementById('ach-word-master').classList.add('unlocked'); if (Object.keys(personalDictionary).length >= 3) document.getElementById('ach-explorer').classList.add('unlocked'); const hasPerfectScore = userTopics.some(t => t.score === t.totalQuestions && t.totalQuestions > 0); if (hasPerfectScore) document.getElementById('ach-excellent').classList.add('unlocked'); }
+// ЗАМІНИ СТАРУ ФУНКЦІЮ НА ЦЮ
+function checkAndDisplayAchievements() {
+    // Отримуємо ключові показники зі статистики
+    const wordsLearned = parseInt(statsWordsLearned.textContent) || 0;
+    const completedTopicsCount = parseInt(statsTopicsCompleted.textContent) || 0;
+    const averageScoreText = statsAverageScore.textContent || '0%';
+    const averageScore = parseInt(averageScoreText.replace('%', '')) || 0;
+    
+    // ===================================
+    // 1. Існуючі досягнення (перевіряємо як і раніше)
+    // ===================================
+    if (completedTopicsCount >= 1) document.getElementById('ach-first-step').classList.add('unlocked');
+    if (wordsLearned >= 50) document.getElementById('ach-word-master').classList.add('unlocked');
+    if (Object.keys(personalDictionary).length >= 3) document.getElementById('ach-explorer').classList.add('unlocked');
+    const hasPerfectScore = userTopics.some(t => t.score === t.totalQuestions && t.totalQuestions > 0);
+    if (hasPerfectScore) document.getElementById('ach-excellent').classList.add('unlocked');
+
+    // ===================================
+    // 2. НОВІ ДОСЯГНЕННЯ
+    // ===================================
+
+    // Рівні "Словникового марафону"
+    if (wordsLearned >= 100) document.getElementById('ach-polyglot').classList.add('unlocked');
+    if (wordsLearned >= 250) document.getElementById('ach-word-mage').classList.add('unlocked');
+
+    // Рівні "Дослідника"
+    if (Object.keys(personalDictionary).length >= 5) document.getElementById('ach-traveler').classList.add('unlocked');
+    if (Object.keys(personalDictionary).length >= 10) document.getElementById('ach-collector').classList.add('unlocked');
+
+    // Майстерність у тестах
+    const perfectScoreCount = userTopics.filter(t => t.score === t.totalQuestions && t.totalQuestions > 0).length;
+    if (perfectScoreCount >= 3) document.getElementById('ach-perfectionist').classList.add('unlocked');
+    if (averageScore >= 90 && completedTopicsCount > 0) document.getElementById('ach-stable').classList.add('unlocked');
+    const totalTestsTaken = userTopics.filter(t => t.score !== undefined).length;
+    if (totalTestsTaken >= 10) document.getElementById('ach-veteran').classList.add('unlocked');
+
+    // Використання функціоналу
+    if (localStorage.getItem('practiceSessionCompleted') === 'true') {
+        document.getElementById('ach-practice-power').classList.add('unlocked');
+    }
+    if (localStorage.getItem('dictionarySearched') === 'true') {
+        document.getElementById('ach-curious').classList.add('unlocked');
+    }
+
+    // "Секретне" досягнення
+    const allWords = Object.values(personalDictionary).flat().map(w => w.word);
+    if (allWords.includes('el logro')) {
+        document.getElementById('ach-meta').classList.add('unlocked');
+    }
+}
 function renderProfile() { calculateAndDisplayStats(); checkAndDisplayAchievements(); }
 function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[array[i], array[j]] = [array[j], array[i]]; } }
 function generateTest(topicData) { testQuestions = []; const allWords = [...topicData.words]; shuffleArray(allWords); const selectedWords = allWords.slice(0, Math.min(10, allWords.length)); for (const wordData of selectedWords) { const correctAnswer = wordData.translation; const options = [correctAnswer]; const distractors = allWords.filter(w => w.translation !== correctAnswer).map(w => w.translation); shuffleArray(distractors); for (let i = 0; i < 3; i++) { if (distractors[i] && options.length < 4) options.push(distractors[i]); } shuffleArray(options); testQuestions.push({ word: wordData.word, options, correctAnswer }); } }
@@ -46,7 +95,7 @@ function filterDictionary() { const searchTerm = dictionarySearch.value.toLowerC
 navDashboard.addEventListener('click', (e) => { e.preventDefault(); showScreen('dashboard-screen'); });
 navDictionary.addEventListener('click', (e) => { e.preventDefault(); renderDictionary(); showScreen('dictionary-screen'); });
 navProfile.addEventListener('click', (e) => { e.preventDefault(); renderProfile(); showScreen('profile-screen'); });
-dictionarySearch.addEventListener('input', filterDictionary);
+javascript // ЗАМІНИ СТАРИЙ ОБРОБНИК НА ЦЕЙ dictionarySearch.addEventListener('input', () => { // Зберігаємо прапорець, що користувач скористався пошуком if (localStorage.getItem('dictionarySearched') !== 'true') { localStorage.setItem('dictionarySearched', 'true'); } filterDictionary(); // Викликаємо твою існуючу функцію фільтрації });
 generateTopicBtn.addEventListener('click', () => { const requestedTopic = topicInput.value.trim(); if (!requestedTopic) { alert("Будь ласка, введіть назву теми."); return; } loadingIndicator.style.display = 'block'; generateTopicBtn.disabled = true; generateTopicBtn.textContent = 'Завантаження...'; fetchTopicFromServer(requestedTopic).then(topicData => { const newTopicData = { topicData: topicData, score: undefined, totalQuestions: undefined }; if (!userTopics.some(t => t.topicData.topic === newTopicData.topicData.topic)) { userTopics.push(newTopicData); saveProgress(); updateUserTopicsList(); startLearningTopic(newTopicData); } else { alert(`Тема "${newTopicData.topicData.topic}" вже є у вашому списку.`); const existingTopic = userTopics.find(t => t.topicData.topic === newTopicData.topicData.topic); startLearningTopic(existingTopic); } }).catch(error => { alert("Не вдалося завантажити урок. Помилка: " + error.message); }).finally(() => { loadingIndicator.style.display = 'none'; generateTopicBtn.disabled = false; generateTopicBtn.textContent = 'Створити новий урок'; topicInput.value = ''; }); });
 showTranslationBtn.addEventListener('click', () => { cardBack.style.display = 'block'; showTranslationBtn.style.display = 'none'; nextWordBtn.style.display = 'block'; });
 nextWordBtn.addEventListener('click', showNextWord);

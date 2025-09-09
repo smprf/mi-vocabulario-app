@@ -1,97 +1,151 @@
 /* =======================
    ІМПОРТ ШРИФТУ ТА ГЛОБАЛЬНІ СТИЛІ
-   Ми імпортуємо приємний шрифт з Google Fonts і задаємо базові налаштування
+   Використовуємо більш сучасний шрифт та додаємо змінні для кольорів
 ======================== */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #2980b9; /* Синій для кнопок та акцентів */
-    --secondary-color: #3498db; /* Світліший синій для ховерів */
-    --background-color: #f4f7f9; /* Дуже світлий сіро-синій фон */
-    --text-color: #333; /* Темно-сірий для основного тексту */
-    --white-color: #ffffff; /* Білий для карток та контейнерів */
-    --border-radius: 8px; /* Скруглення кутів */
+    --primary-color: #6c63ff; /* Яскравий фіолетовий для акцентів */
+    --primary-dark-color: #554cd8; /* Темніший фіолетовий для ховерів */
+    --secondary-color: #4CAF50; /* Зелений для успіху */
+    --danger-color: #f44336; /* Червоний для помилок */
+    --background-light: #f7f9fc; /* Дуже світлий сірий для фону */
+    --background-card: #ffffff; /* Білий для карток */
+    --text-dark: #333333; /* Темний текст */
+    --text-light: #666666; /* Світліший текст */
+    --border-color: #e0e0e0; /* Колір рамки */
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08); /* Легка тінь */
+    --border-radius: 12px; /* Більш округлі кути */
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* =======================
    ОСНОВНА РОЗМІТКА (HEADER, MAIN)
 ======================== */
 header {
-    background-color: var(--white-color);
+    background: var(--background-card);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-light);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header h1 {
     color: var(--primary-color);
     margin: 0;
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
 }
 
 header nav a {
-    color: var(--primary-color);
+    color: var(--text-light);
     text-decoration: none;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     font-weight: 500;
-    transition: color 0.3s;
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: var(--primary-color);
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease-in-out;
 }
 
 header nav a:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
+header nav a:hover::after {
+    width: 100%;
+}
+
+
 main {
-    max-width: 800px;
-    margin: 2rem auto; /* Центрування основного контенту */
-    padding: 0 1rem;
+    max-width: 900px;
+    margin: 2.5rem auto; /* Більші відступи зверху/знизу */
+    padding: 0 1.5rem;
 }
 
 section {
-    background-color: var(--white-color);
-    padding: 2rem;
+    background-color: var(--background-card);
+    padding: 2.5rem;
     border-radius: var(--border-radius);
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* =======================
    СТИЛІ ДЛЯ УНІВЕРСАЛЬНИХ ЕЛЕМЕНТІВ (КНОПКИ, ПОЛЯ ВВОДУ)
 ======================== */
 button {
-    background-color: var(--primary-color);
-    color: var(--white-color);
+    background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    color: var(--background-card);
     border: none;
-    padding: 12px 24px;
+    padding: 14px 28px;
     border-radius: var(--border-radius);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.05rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 button:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px); /* Легкий ефект підняття */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, var(--primary-dark-color) 0%, var(--primary-color) 100%);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 input[type="text"],
 input[type="search"] {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
+    padding: 14px;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    font-size: 1rem;
-    box-sizing: border-box; /* Важливо для правильного розрахунку ширини */
+    font-size: 1.05rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    outline: none;
 }
 
 ul {
@@ -100,13 +154,20 @@ ul {
 }
 
 li {
-    background-color: #f9f9f9;
-    padding: 1rem;
+    background-color: var(--background-light);
+    padding: 1rem 1.5rem;
     border-radius: var(--border-radius);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+li:hover {
+    background-color: #eef2f7;
+    transform: translateX(5px);
 }
 
 /* =======================
@@ -120,12 +181,15 @@ li {
 }
 
 .topic-generator p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--text-light);
 }
 
 #generate-topic-btn {
-    margin-top: 1rem;
-    width: 50%;
+    margin-top: 1.5rem;
+    width: 60%;
+    max-width: 300px;
 }
 
 /* Екран 2: Вивчення слів (картки) */
@@ -134,101 +198,190 @@ li {
 }
 
 .flashcard {
-    background-color: var(--white-color);
-    border: 1px solid #eee;
+    background-color: var(--background-card);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    padding: 3rem 2rem;
-    min-height: 200px;
+    padding: 3.5rem 2.5rem;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-light);
+    position: relative;
+    overflow: hidden;
+    perspective: 1000px; /* Для 3D-ефекту перевороту */
+}
+
+.flashcard::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--primary-color) 0%, rgba(108, 99, 255, 0) 70%);
+    opacity: 0.1;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+}
+
+.flashcard:hover::before {
+    top: -20px;
+    left: -20px;
+    opacity: 0.2;
+    transform: scale(1.2);
 }
 
 .flashcard .word {
-    font-size: 2.5rem;
+    font-size: 3.2rem;
     font-weight: 700;
     color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    animation: fadeIn 0.8s ease-out;
 }
 
 .flashcard .translation {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    animation: fadeIn 1s ease-out;
+}
+
+.flashcard .examples {
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    max-width: 80%;
 }
 
 .flashcard .examples li {
     background-color: transparent;
     font-style: italic;
-    color: #555;
-    padding: 0.2rem;
+    color: var(--text-light);
+    padding: 0.4rem 0;
     justify-content: center;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px dashed var(--border-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.flashcard .examples li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Екран 3: Тест */
 .options {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 0.8rem; /* Збільшимо відстань між кнопками */
+    margin-top: 1.5rem;
 }
 
 .options button {
-    background-color: var(--white-color);
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    /* Використовуємо той самий градієнт, що й для основних кнопок */
+    background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    color: white; /* <--- ГОЛОВНЕ ВИПРАВЛЕННЯ: білий текст */
+    border: none; /* Градієнту не потрібна рамка */
     width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Робимо тінь виразнішою */
+    font-weight: 600; /* Робимо текст трохи жирнішим */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* <--- МАГІЯ: додаємо легку тінь тексту */
+    text-transform: none; /* Залишаємо звичайний текст, не uppercase */
+    padding: 14px 20px; /* Трохи збільшимо відступи для кращого вигляду */
+    border-radius: var(--border-radius); /* Додаємо заокруглення, як в інших кнопках */
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .options button:hover {
     background-color: var(--primary-color);
-    color: var(--white-color);
+    color: var(--background-card);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-/* Додайте це в кінець style.css */
+
 #loading-indicator {
-    margin-top: 1rem;
-    color: var(--secondary-color);
+    margin-top: 1.5rem;
+    color: var(--primary-color);
     font-weight: 500;
+    font-size: 1.1rem;
+    animation: pulse 1.5s infinite ease-in-out;
 }
-/* Додайте це в кінець style.css */
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
 
 /* Стилі для підсумкової таблиці */
 #summary-table {
     width: 100%;
-    border-collapse: collapse; /* Прибирає подвійні рамки між клітинками */
-    margin: 2rem 0;
+    border-collapse: separate; /* Використовуємо separate для border-radius */
+    border-spacing: 0;
+    margin: 2.5rem 0;
+    overflow: hidden; /* Щоб border-radius працював на обгортці */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
 }
 
-#summary-table th, 
+#summary-table th,
 #summary-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    border: 1px solid var(--border-color);
+    padding: 15px 20px;
     text-align: left;
 }
 
 #summary-table th {
-    background-color: var(--background-color);
-    font-weight: 700;
+    background-color: var(--primary-color);
+    color: var(--background-card);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+#summary-table tbody tr:nth-child(even) {
+    background-color: #fcfdff;
 }
 
 #summary-table td .example-spa {
     font-style: italic;
-    color: #555;
+    color: var(--text-light);
+    font-size: 0.95rem;
 }
 
 #summary-table td .example-ukr {
-    font-size: 0.9em;
-    color: #777;
+    font-size: 0.85em;
+    color: #888888;
+    margin-top: 0.4rem;
+    display: block; /* Щоб відступ зверху працював */
 }
 
 #start-test-btn {
     display: block;
-    margin: 0 auto; /* Центрування кнопки */
-    width: 50%;
+    margin: 2rem auto 0 auto; /* Центрування кнопки та відступ */
+    width: 60%;
+    max-width: 350px;
 }
-/* Додайте це в кінець style.css */
 
 /* Стилі для динамічного словника */
 #dictionary-content {
@@ -236,56 +389,67 @@ li {
 }
 
 .dictionary-theme-section {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .dictionary-theme-section h3 {
     color: var(--primary-color);
-    border-bottom: 2px solid var(--background-color);
-    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 1.6rem;
 }
 
 #dictionary-content ul {
-    columns: 2; /* Розбиваємо список на дві колонки для компактності */
+    columns: 2; /* Розбиваємо список на дві колонки */
     -webkit-columns: 2;
     -moz-columns: 2;
     list-style-position: inside;
+    column-gap: 2rem; /* Відстань між колонками */
 }
 
 #dictionary-content li {
     background-color: transparent;
-    padding: 0.5rem;
+    padding: 0.6rem 0;
     border: none;
     box-shadow: none;
+    color: var(--text-dark);
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    transition: color 0.2s ease;
 }
-/* Додайте це в кінець style.css */
 
-/* ЗАМІНІТЬ СТАРИЙ БЛОК НА ЦЕЙ */
+#dictionary-content li:hover {
+    color: var(--primary-color);
+    transform: none; /* Прибираємо трансформацію при наведенні для цього списку */
+}
 
 /* Стилі для читабельних прикладів у картках та таблиці */
 .flashcard .examples li p,
 #summary-table td p {
-    margin: 0; /* Скидаємо стандартні відступи параграфів */
+    margin: 0;
     padding: 0;
 }
 
 p.example-spa {
     font-style: italic;
-    color: #555;
+    color: var(--text-light);
 }
 
 p.example-ukr {
     font-size: 0.9em;
-    color: #777;
-    margin-top: 0.3rem; /* Додаємо невеликий відступ зверху до перекладу */
+    color: #888888;
+    margin-top: 0.3rem;
 }
-/* Додайте це в кінець style.css */
 
 /* Стилі для екрану тестування */
 #test-progress {
     text-align: center;
-    color: #777;
-    margin-bottom: 1rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .test-question-container {
@@ -293,27 +457,43 @@ p.example-ukr {
 }
 
 #test-word {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: var(--primary-color);
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    font-weight: 700;
 }
 
 /* Стилі для кнопок-відповідей */
 .options button.correct {
-    background-color: #2ecc71; /* Зелений */
-    color: var(--white-color);
-    border-color: #2ecc71;
+    background: var(--secondary-color); /* Зелений */
+    color: var(--background-card);
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+.options button.correct:hover {
+    background: #43a047;
+    border-color: #43a047;
+    transform: translateY(-2px);
 }
 
 .options button.incorrect {
-    background-color: #e74c3c; /* Червоний */
-    color: var(--white-color);
-    border-color: #e74c3c;
+    background: var(--danger-color); /* Червоний */
+    color: var(--background-card);
+    border-color: var(--danger-color);
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+}
+
+.options button.incorrect:hover {
+    background: #d32f2f;
+    border-color: #d32f2f;
+    transform: translateY(-2px);
 }
 
 .options button.disabled {
-    pointer-events: none; /* Вимикає кліки */
-    opacity: 0.7;
+    pointer-events: none;
+    opacity: 0.6;
+    filter: grayscale(30%);
 }
 
 /* Стилі для екрану результатів */
@@ -322,126 +502,292 @@ p.example-ukr {
 }
 
 #test-score {
-    font-size: 2rem;
-    margin: 2rem 0;
+    font-size: 3.5rem;
+    margin: 2.5rem 0;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -1px;
 }
-/* Додайте це в кінець style.css */
 
 /* Стилі для профілю */
 .stats-container {
     display: flex;
     justify-content: space-around;
     text-align: center;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
+    gap: 1.5rem; /* Відстань між елементами */
 }
 
 .stat-item {
-    padding: 1rem;
-    border: 1px solid #ddd;
+    background-color: var(--background-light);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     width: 30%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .stat-number {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    line-height: 1;
 }
 
 .stat-label {
-    color: #777;
-    font-size: 0.9rem;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .achievements-container {
     list-style-type: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Адаптивна сітка */
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .achievements-container li {
-    background-color: #f0f0f0;
-    color: #aaa;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
+    background-color: #f0f4f8; /* Світло-сірий */
+    color: #aebacd;
+    padding: 1.2rem 1.5rem;
     border-radius: var(--border-radius);
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e6ed;
+}
+
+.achievements-container li::before {
+    content: '🔒'; /* Замок для заблокованих */
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    line-height: 1;
 }
 
 .achievements-container li.unlocked {
     background-color: #e8f5e9; /* Світло-зелений */
     color: #2e7d32; /* Темно-зелений */
-    font-weight: 500;
+    font-weight: 600;
+    border-color: #c8e6c9;
 }
+
+.achievements-container li.unlocked::before {
+    content: '🏆'; /* Кубок для розблокованих */
+    color: #ffc107; /* Золотий кубок */
+}
+
 /* =======================================
    АДАПТИВНІСТЬ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ
-   Ці стилі активуються на екранах, 
-   ширина яких 600px або менше.
+   Ці стилі активуються на екранах,
+   ширина яких 768px або менше.
 ======================================== */
-@media (max-width: 600px) {
-
-    /* --- Загальні зміни --- */
-    body {
-        font-size: 16px; /* Зробимо базовий шрифт трохи більшим */
-    }
-
+@media (max-width: 768px) {
     main {
-        margin: 1rem auto; /* Зменшимо відступи зверху та знизу */
+        margin: 1.5rem auto;
+        padding: 0 1rem;
     }
 
     section {
-        padding: 1.5rem 1rem; /* Зменшимо внутрішні відступи секцій */
+        padding: 2rem 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
-    /* --- Хедер (шапка сайту) --- */
     header {
-        flex-direction: column; /* Розташуємо лого та навігацію одне під одним */
-        text-align: center;
+        flex-direction: column;
         padding: 1rem;
     }
 
     header h1 {
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    header nav {
+        margin-top: 0.5rem;
     }
 
     header nav a {
-        margin: 0 0.5rem; /* Зменшимо відступи між посиланнями */
+        margin: 0 0.8rem;
+        font-size: 0.95rem;
     }
 
-    /* --- Екран створення теми --- */
+    button {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="search"] {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .topic-generator p {
+        font-size: 1rem;
+    }
+
     #generate-topic-btn {
-        width: 100%; /* Кнопка на всю ширину для зручності натискання */
+        width: 80%;
+        max-width: 250px;
     }
 
-    /* --- Картки для вивчення --- */
+    .flashcard {
+        padding: 2.5rem 1.5rem;
+        min-height: 220px;
+    }
+
     .flashcard .word {
-        font-size: 2rem; /* Трохи зменшимо розмір слова */
+        font-size: 2.5rem;
     }
 
     .flashcard .translation {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 
-    /* --- Словник --- */
+    .flashcard .examples li {
+        font-size: 0.9rem;
+    }
+
+    .options {
+        gap: 0.6rem;
+    }
+
+    .options button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    #summary-table th,
+    #summary-table td {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+
+    #summary-table td .example-spa {
+        font-size: 0.85rem;
+    }
+
+    #summary-table td .example-ukr {
+        font-size: 0.75em;
+    }
+
+    #start-test-btn {
+        width: 70%;
+        max-width: 280px;
+    }
+
+    .dictionary-theme-section h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
     #dictionary-content ul {
-        columns: 1; /* Найважливіше: робимо словник в одну колонку! */
+        columns: 1; /* В одну колонку на мобільних */
         -webkit-columns: 1;
         -moz-columns: 1;
+        column-gap: 0;
     }
 
-    /* --- Профіль --- */
+    #dictionary-content li {
+        font-size: 0.95rem;
+        padding: 0.5rem 0;
+    }
+
+    #test-word {
+        font-size: 2.5rem;
+    }
+
+    #test-score {
+        font-size: 2.8rem;
+    }
+
     .stats-container {
-        flex-direction: column; /* Статистику теж розташовуємо вертикально */
+        flex-direction: column;
         gap: 1rem;
     }
 
     .stat-item {
-        width: 100%; /* Кожен блок статистики на всю ширину */
-        box-sizing: border-box;
+        width: 100%;
+        padding: 1.2rem;
     }
-    
-    /* --- Підсумкова таблиця --- */
-    #summary-table th, 
-    #summary-table td {
-        padding: 8px; /* Зменшимо відступи в таблиці */
+
+    .stat-number {
+        font-size: 2.5rem;
     }
+
+    .stat-label {
+        font-size: 0.9rem;
+    }
+
+    .achievements-container {
+        grid-template-columns: 1fr; /* Одна колонка для досягнень */
+        gap: 0.8rem;
+    }
+
+    .achievements-container li {
+        padding: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .achievements-container li::before {
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+
+    header nav a {
+        margin: 0 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    .flashcard .word {
+        font-size: 2rem;
+    }
+
+    .flashcard .translation {
+        font-size: 1.2rem;
+    }
+
+    #test-word {
+        font-size: 2rem;
+    }
+
+    #test-score {
+        font-size: 2.2rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+/* Додаткові стилі для фонових градієнтів або патернів */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(108, 99, 255, 0.05) 0%, rgba(247, 249, 252, 0) 50%),
+                radial-gradient(circle at bottom right, rgba(76, 175, 80, 0.05) 0%, rgba(247, 249, 252, 0) 50%);
+    z-index: -1;
+    pointer-events: none;
 }
